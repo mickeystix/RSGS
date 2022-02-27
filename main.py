@@ -65,7 +65,7 @@ def openDirMgr():
     btnSaveDir.pack()
     lblNotice = Label(dc, text="Directory should have Steam .url shortcuts", fg="grey")
     lblNotice.pack()
-    lblNotice2 = Label(dc, text="Double \ is not required, simple copy and paste the path", fg="grey")
+    lblNotice2 = Label(dc, text="Double \ is not required, simply copy and paste the path", fg="grey")
     lblNotice2.pack()
 
 # Gui Items
