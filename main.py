@@ -1,5 +1,3 @@
-
-
 from tkinter import *
 import os
 import random
