@@ -53,7 +53,7 @@ def saveDir(newfolder):
 # Spawn new window for directory changing
 def openDirMgr():
     dc = Tk()
-    dc.geometry("400x85")
+    dc.geometry("400x120")
     dc.title("RSGS - Dir Manager")
     dc.resizable(False, False)
     lblDir = Label(dc, text="Path", justify=LEFT).pack()
