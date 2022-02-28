@@ -12,7 +12,7 @@ Update #2:<br />
 Added File Dialog for directory selection<br />
 UI/UX changes<br />
 <br />
-Update #2.1:<br />
+Update #2.1 & 2.2:<br />
 Auto close on game run<br />
 Cleanup<br />
 <br />
