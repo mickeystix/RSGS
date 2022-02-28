@@ -4,9 +4,18 @@ Random Set Game Selector - Choose a random game (.url, .lnk, .exe) from a folder
 I sometimes cannot decide what game I actually want to play. This helps me make that decision.<br />
 
 Update #1:<br />
-Can now use .exe, .lnk. <br />
+Can now use .exe, .lnk <br />
 Refactored UI/UX<br />
 Added logging to console<br />
+<br />
+Update #2:<br />
+Added File Dialog for directory selection<br />
+UI/UX changes<br />
+<br />
+Planned changes:<br />
+Best Practices adherence<br />
+Package for .exe<br />
+
 
 Used packages/libraries:<br />
 -tkinter<br />

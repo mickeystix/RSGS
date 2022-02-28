@@ -1,12 +1,13 @@
 from tkinter import *
 import os
 import random
+from tkinter import filedialog
 import webbrowser
 
 root = Tk()
 
 root.title("")
-root.geometry("340x60")
+root.geometry("340x55")
 root.resizable(False, False)
 if os.path.exists("./favicon-32x32.png"):
     icon = PhotoImage(file = "favicon-32x32.png")
@@ -29,7 +30,9 @@ def logList():
     # End Logging
 
 def logSelection():
+    # Logging to console
     print("Selected Game: " + chooseGame.strSelectedGame)
+    # End Logging
 
 # Get the list of games from a folder
 def getGameList(games_folder):
@@ -47,15 +50,18 @@ def getRandomGame(totalgames, games):
 
 # Main function that runs all the stuff
 def chooseGame():
-    games = getGameList(games_folder)
-    #totalgames = 0
-    if games:
-        #for game in games:
-        #    totalgames += 1
-        chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
-        chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
-        logSelection()
-        updateChoiceLabel()
+    if games_folder != "":
+        games = getGameList(games_folder)
+        #totalgames = 0
+        if games:
+            #for game in games:
+            #    totalgames += 1
+            chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
+            chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
+            logSelection()
+            updateChoiceLabel()
+        else:
+            lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
     
 # Show the user the chosen game    
 def updateChoiceLabel():
@@ -63,38 +69,50 @@ def updateChoiceLabel():
     
 # Run the chosen game    
 def runGame():
-    webbrowser.open(games_folder + r"\\" + chooseGame.selectedGame)
+    if games_folder != "" and chooseGame.selectedGame:
+        webbrowser.open(games_folder + r"\\" + chooseGame.selectedGame)
 
 # Save new directory path
-def saveDir(newfolder):
+def saveDir(newfolder, window):
     global games_folder 
-    games_folder = newfolder
+    if os.path.exists(newfolder):
+        games_folder = newfolder
+        openDirMgr.window.destroy()
+    else:
+        lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
+        openDirMgr.window.destroy()
+
+# File Dialog prompt for directory selection
+def findDir(window):
+    newfolder = filedialog.askdirectory()
+    saveDir(newfolder, window)
+    lblGameChosen.config(text="Directory Set! Click Choose.")
 
 # Spawn new window for directory changing
 def openDirMgr():
-    dc = Tk()
-    dc.geometry("400x120")
-    dc.title("RSGS - Dir Manager")
-    dc.resizable(False, False)
-    lblDir = Label(dc, text="Path", justify=LEFT)
+    openDirMgr.window = Tk()
+    openDirMgr.window.geometry("400x70")
+    openDirMgr.window.title("RSGS - Dir Manager")
+    openDirMgr.window.resizable(False, False)
+    lblDir = Label(openDirMgr.window, text="Path", justify=LEFT)
     lblDir.grid(row=0, column=0)
-    eDirectory = Entry(dc, width=62)
-    eDirectory.grid(row=1, column=0, columnspan=6, padx=10)
+    eDirectory = Entry(openDirMgr.window, width=62)
+    eDirectory.grid(row=1, column=0, columnspan = 8, padx=10)
     eDirectory.delete(1, END)
     eDirectory.insert(0, str(games_folder))
-    btnSaveDir = Button(dc, text="Save", command=lambda:saveDir(eDirectory.get()))
-    btnSaveDir.grid(row=3, column=1)
-    lblNotice = Label(dc, text="Directory can have .exe, .url, or .lnk files", fg="grey")
-    lblNotice.grid(row=4, column=1)
-    lblNotice2 = Label(dc, text="For best results, simply copy and paste the path", fg="grey")
-    lblNotice2.grid(row=5, column=1)
+    btnSelectDir = Button(openDirMgr.window, text="Select", command=lambda:findDir(openDirMgr.window))
+    btnSelectDir.grid(row=2, column=0)
+    btnSaveDir = Button(openDirMgr.window, text="Save", command=lambda:saveDir(eDirectory.get(), openDirMgr.window))
+    btnSaveDir.grid(row=2, column=7)
+    lblNotice = Label(openDirMgr.window, text="Directory can have .exe, .url, or .lnk files", fg="grey")
+    lblNotice.grid(row=2, column=3)
 
 # GUI Items
 lblGameChosen = Label(root, text="Click Change Directory Button to set, then Click Choose.", width= 50)
 lblGameChosen.grid(row=0, column=0, columnspan=12)
 btnChooseGame = Button(root, text="Choose", command=chooseGame)
 btnChooseGame.grid(row=1, column=3)
-btnRunGame = Button(root, text="Play", command=lambda:runGame())
+btnRunGame = Button(root, text="Play", command=runGame)
 btnRunGame.grid(row=1, column=5)
 btnChangeDir = Button(root, text="Change Directory", command=openDirMgr)
 btnChangeDir.grid(row=1, column=7)
