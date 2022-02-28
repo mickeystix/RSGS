@@ -15,6 +15,7 @@ UI/UX changes<br />
 Update #2.1 & 2.2:<br />
 Auto close on game run<br />
 Cleanup<br />
+<br />
 Update #3<br />
 Changes to how log to console is handled<br />
 <br />
