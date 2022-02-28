@@ -16,8 +16,10 @@ Update #2.1 & 2.2:<br />
 Auto close on game run<br />
 Cleanup<br />
 <br />
-Update #3<br />
+Update #3 & 3.1<br />
 Changes to how log to console is handled<br />
+UI/UX Changes<br />
+Execption handling and messaging<br />
 <br />
 Planned changes:<br />
 Best Practices adherence<br />

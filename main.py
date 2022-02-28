@@ -40,7 +40,7 @@ def getRandomGame(totalgames, games):
     choice = random.randint(0,totalgames-1)
     return games[choice]
 
-# Get total number of games in dir
+# Get total number of games in dir, if mode == 1 print to console
 def getGameCount(mode):
     if mode == 0:
         i = 0
@@ -68,11 +68,12 @@ def chooseGame():
             #logSelection()
             updateChoiceLabel()
         else:
-            lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
+            lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
     
 # Show the user the chosen game    
 def updateChoiceLabel():
-    lblGameChosen.config(text=chooseGame.strSelectedGame)
+    lblGameChosen.config(text=chooseGame.strSelectedGame, bg="black", fg="white")
+    btnRunGame.config(text="Play", bg="green", fg="white")
     
 # Run the chosen game    
 def runGame():
@@ -85,16 +86,17 @@ def saveDir(newfolder, window):
     global games_folder 
     if os.path.exists(newfolder):
         games_folder = newfolder
+        lblGameChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
         openDirMgr.window.destroy()
     else:
-        lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
-        openDirMgr.window.destroy()
+        lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
+        #openDirMgr.window.destroy()
 
 # File Dialog prompt for directory selection
 def findDir(window):
     newfolder = filedialog.askdirectory()
     saveDir(newfolder, window)
-    lblGameChosen.config(text="Directory Set! Click Choose.")
+    lblGameChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
 
 # Spawn new window for directory changing
 def openDirMgr():
