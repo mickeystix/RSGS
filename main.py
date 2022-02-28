@@ -6,7 +6,6 @@ import webbrowser
 from xmlrpc.client import boolean
 
 root = Tk()
-
 root.title("")
 root.geometry("340x55")
 root.resizable(False, False)
@@ -14,7 +13,7 @@ if os.path.exists("./favicon-32x32.png"):
     icon = PhotoImage(file = "favicon-32x32.png")
     root.iconphoto(False, icon) 
 
-
+# You could change this to create a default folder
 games_folder = (r"")
 
 # Print to console count (ln 50)
@@ -90,7 +89,6 @@ def saveDir(newfolder, window):
         openDirMgr.window.destroy()
     else:
         lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
-        #openDirMgr.window.destroy()
 
 # File Dialog prompt for directory selection
 def findDir(window):
