@@ -15,12 +15,13 @@ UI/UX changes<br />
 Update #2.1 & 2.2:<br />
 Auto close on game run<br />
 Cleanup<br />
+Update #3<br />
+Changes to how log to console is handled<br />
 <br />
 Planned changes:<br />
 Best Practices adherence<br />
 Package for .exe<br />
-
-
+<br />
 Used packages/libraries:<br />
 -tkinter<br />
 -os<br />

@@ -3,6 +3,7 @@ import os
 import random
 from tkinter import filedialog
 import webbrowser
+from xmlrpc.client import boolean
 
 root = Tk()
 
@@ -16,17 +17,27 @@ if os.path.exists("./favicon-32x32.png"):
 
 games_folder = (r"")
 
-def logList():
-    print("\n==========GAMELIST==========")
-    i = 0
-    while i < (len(getGameList.gameList)):
-        game = str(getGameList.gameList[i])
-        print(game[:len(game)-4])
-        i += 1
-    print("==========GAMELIST==========")
-    getGameList.totalGames = i
-    print("Total Games Found: " + str(getGameList.totalGames))
-
+def getGameCount(mode):
+    if mode == 0:
+        i = 0
+        while i < (len(getGameList.gameList)):
+            i += 1
+        getGameCount.totalGames = i
+    elif mode == 1:
+        print("\n==========GAMELIST==========")
+        i = 0
+        while i < (len(getGameList.gameList)):
+            game = str(getGameList.gameList[i])
+            print(game[:len(game)-4])
+            i += 1
+        print("==========GAMELIST==========")
+        getGameCount.totalGames = i
+        print("Total Games Found: " + str(getGameCount.totalGames))
+# Print to console count (ln 50)
+def logCount():
+    getGameCount(1)
+    
+# Print to console selection (ln 66)
 def logSelection():
     print("Selected Game: " + chooseGame.strSelectedGame)
 
@@ -36,7 +47,8 @@ def getGameList(games_folder):
     if not getGameList.gameList:
         print("Failed to find any games in directory")
     else:
-        logList()
+        #logCount()
+        getGameCount(0)
         return getGameList.gameList 
         
 # Choose a random game from list of games
@@ -49,9 +61,9 @@ def chooseGame():
     if games_folder != "":
         games = getGameList(games_folder)
         if games:
-            chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
+            chooseGame.selectedGame = getRandomGame(getGameCount.totalGames, games)
             chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
-            logSelection()
+            #logSelection()
             updateChoiceLabel()
         else:
             lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
