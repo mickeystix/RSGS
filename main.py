@@ -17,22 +17,6 @@ if os.path.exists("./favicon-32x32.png"):
 
 games_folder = (r"")
 
-def getGameCount(mode):
-    if mode == 0:
-        i = 0
-        while i < (len(getGameList.gameList)):
-            i += 1
-        getGameCount.totalGames = i
-    elif mode == 1:
-        print("\n==========GAMELIST==========")
-        i = 0
-        while i < (len(getGameList.gameList)):
-            game = str(getGameList.gameList[i])
-            print(game[:len(game)-4])
-            i += 1
-        print("==========GAMELIST==========")
-        getGameCount.totalGames = i
-        print("Total Games Found: " + str(getGameCount.totalGames))
 # Print to console count (ln 50)
 def logCount():
     getGameCount(1)
@@ -55,6 +39,24 @@ def getGameList(games_folder):
 def getRandomGame(totalgames, games):
     choice = random.randint(0,totalgames-1)
     return games[choice]
+
+# Get total number of games in dir
+def getGameCount(mode):
+    if mode == 0:
+        i = 0
+        while i < (len(getGameList.gameList)):
+            i += 1
+        getGameCount.totalGames = i
+    elif mode == 1:
+        print("\n==========GAMELIST==========")
+        i = 0
+        while i < (len(getGameList.gameList)):
+            game = str(getGameList.gameList[i])
+            print(game[:len(game)-4])
+            i += 1
+        print("==========GAMELIST==========")
+        getGameCount.totalGames = i
+        print("Total Games Found: " + str(getGameCount.totalGames))
 
 # Main function that runs all the stuff
 def chooseGame():
