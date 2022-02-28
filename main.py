@@ -17,7 +17,6 @@ if os.path.exists("./favicon-32x32.png"):
 games_folder = (r"")
 
 def logList():
-    # Logging to console
     print("\n==========GAMELIST==========")
     i = 0
     while i < (len(getGameList.gameList)):
@@ -27,12 +26,9 @@ def logList():
     print("==========GAMELIST==========")
     getGameList.totalGames = i
     print("Total Games Found: " + str(getGameList.totalGames))
-    # End Logging
 
 def logSelection():
-    # Logging to console
     print("Selected Game: " + chooseGame.strSelectedGame)
-    # End Logging
 
 # Get the list of games from a folder
 def getGameList(games_folder):
@@ -52,10 +48,7 @@ def getRandomGame(totalgames, games):
 def chooseGame():
     if games_folder != "":
         games = getGameList(games_folder)
-        #totalgames = 0
         if games:
-            #for game in games:
-            #    totalgames += 1
             chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
             chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
             logSelection()
@@ -71,6 +64,7 @@ def updateChoiceLabel():
 def runGame():
     if games_folder != "" and chooseGame.selectedGame:
         webbrowser.open(games_folder + r"\\" + chooseGame.selectedGame)
+    exit()
 
 # Save new directory path
 def saveDir(newfolder, window):

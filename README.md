@@ -12,6 +12,10 @@ Update #2:<br />
 Added File Dialog for directory selection<br />
 UI/UX changes<br />
 <br />
+Update #2.1:<br />
+Auto close on game run<br />
+Cleanup<br />
+<br />
 Planned changes:<br />
 Best Practices adherence<br />
 Package for .exe<br />
