@@ -6,19 +6,36 @@ import webbrowser
 root = Tk()
 
 root.title("RSGS")
-root.geometry("400x100")
+root.geometry("340x60")
 root.resizable(False, False)
 
 games_folder = (r"")
 
+def logList():
+    # Logging to console
+    print("\n==========GAMELIST==========")
+    i = 0
+    while i < (len(getGameList.gameList)):
+        game = str(getGameList.gameList[i])
+        print(game[:len(game)-4])
+        i += 1
+    print("==========GAMELIST==========")
+    getGameList.totalGames = i
+    print("Total Games Found: " + str(getGameList.totalGames))
+    # End Logging
+
+def logSelection():
+    print("Selected Game: " + chooseGame.strSelectedGame)
+
 # Get the list of games from a folder
 def getGameList(games_folder):
-    gameList = [f for f in os.listdir(games_folder) if f.endswith('.url')]
-    if not gameList:
+    getGameList.gameList = [f for f in os.listdir(games_folder) if f.endswith(('.url', '.lnk', '.exe'))]
+    if not getGameList.gameList:
         print("Failed to find any games in directory")
-    else:    
-        return gameList
-
+    else:
+        logList()
+        return getGameList.gameList 
+        
 # Choose a random game from list of games
 def getRandomGame(totalgames, games):
     choice = random.randint(0,totalgames-1)
@@ -27,22 +44,21 @@ def getRandomGame(totalgames, games):
 # Main function that runs all the stuff
 def chooseGame():
     games = getGameList(games_folder)
-    totalgames = 0
+    #totalgames = 0
     if games:
-        for game in games:
-            totalgames += 1
-        chooseGame.selectedGame = getRandomGame(totalgames, games)
+        #for game in games:
+        #    totalgames += 1
+        chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
         chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
-        print(chooseGame.strSelectedGame)
+        logSelection()
         updateChoiceLabel()
     
-
 # Show the user the chosen game    
 def updateChoiceLabel():
     lblGameChosen.config(text=chooseGame.strSelectedGame)
     
 # Run the chosen game    
-def runGame(selectedGame):
+def runGame():
     webbrowser.open(games_folder + r"\\" + chooseGame.selectedGame)
 
 # Save new directory path
@@ -56,23 +72,27 @@ def openDirMgr():
     dc.geometry("400x120")
     dc.title("RSGS - Dir Manager")
     dc.resizable(False, False)
-    lblDir = Label(dc, text="Path", justify=LEFT).pack()
-    eDirectory = Entry(dc, width=80)
-    eDirectory.pack(padx=10)
+    lblDir = Label(dc, text="Path", justify=LEFT)
+    lblDir.grid(row=0, column=0)
+    eDirectory = Entry(dc, width=62)
+    eDirectory.grid(row=1, column=0, columnspan=6, padx=10)
     eDirectory.delete(1, END)
     eDirectory.insert(0, str(games_folder))
     btnSaveDir = Button(dc, text="Save", command=lambda:saveDir(eDirectory.get()))
-    btnSaveDir.pack()
-    lblNotice = Label(dc, text="Directory should have Steam .url shortcuts", fg="grey")
-    lblNotice.pack()
+    btnSaveDir.grid(row=3, column=1)
+    lblNotice = Label(dc, text="Directory can have .exe, .url, or .lnk files", fg="grey")
+    lblNotice.grid(row=4, column=1)
     lblNotice2 = Label(dc, text="Double \ is not required, simply copy and paste the path", fg="grey")
-    lblNotice2.pack()
+    lblNotice2.grid(row=5, column=1)
 
-# Gui Items
-btnChooseGame = Button(root, text="Choose", command=chooseGame).pack()
-lblGameChosen = Label(root, text="Click Change Directory Button to set, then Click Choose button")
-lblGameChosen.pack()
-btnRunGame = Button(root, text="Play", command=lambda:runGame(chooseGame.selectedGame)).pack()
-btnChangeDir = Button(root, text="Change Directory", command=openDirMgr).pack()
+# GUI Items
+lblGameChosen = Label(root, text="Click Change Directory Button to set, then Click Choose.", width= 50)
+lblGameChosen.grid(row=0, column=0, columnspan=12)
+btnChooseGame = Button(root, text="Choose", command=chooseGame)
+btnChooseGame.grid(row=1, column=3)
+btnRunGame = Button(root, text="Play", command=lambda:runGame())
+btnRunGame.grid(row=1, column=5)
+btnChangeDir = Button(root, text="Change Directory", command=openDirMgr)
+btnChangeDir.grid(row=1, column=7)
 
 root.mainloop()
