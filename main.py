@@ -5,9 +5,13 @@ import webbrowser
 
 root = Tk()
 
-root.title("RSGS")
+root.title("")
 root.geometry("340x60")
 root.resizable(False, False)
+if os.path.exists("./favicon-32x32.png"):
+    icon = PhotoImage(file = "favicon-32x32.png")
+    root.iconphoto(False, icon) 
+
 
 games_folder = (r"")
 
