@@ -22,7 +22,6 @@ def getGameList(games_folder):
     if not getGameList.gameList:
         print("Failed to find any games in directory")
     else:
-        logList()
         return getGameList.gameList 
         
 # Choose a random game from list of games
