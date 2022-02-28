@@ -16,12 +16,27 @@ if os.path.exists("./favicon-32x32.png"):
 
 games_folder = (r"")
 
+def logList():
+    print("\n==========GAMELIST==========")
+    i = 0
+    while i < (len(getGameList.gameList)):
+        game = str(getGameList.gameList[i])
+        print(game[:len(game)-4])
+        i += 1
+    print("==========GAMELIST==========")
+    getGameList.totalGames = i
+    print("Total Games Found: " + str(getGameList.totalGames))
+
+def logSelection():
+    print("Selected Game: " + chooseGame.strSelectedGame)
+
 # Get the list of games from a folder
 def getGameList(games_folder):
     getGameList.gameList = [f for f in os.listdir(games_folder) if f.endswith(('.url', '.lnk', '.exe'))]
     if not getGameList.gameList:
         print("Failed to find any games in directory")
     else:
+        logList()
         return getGameList.gameList 
         
 # Choose a random game from list of games
@@ -36,6 +51,7 @@ def chooseGame():
         if games:
             chooseGame.selectedGame = getRandomGame(getGameList.totalGames, games)
             chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
+            logSelection()
             updateChoiceLabel()
         else:
             lblGameChosen.config(text="There was an issue! Please check the directory in Settings.")
