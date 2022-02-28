@@ -1,10 +1,10 @@
 # RSGS
 Random Steam Game Selector - Choose a random game (.url, .lnk, .exe) from a folder, then run it if you'd like. 
 
-Update #1:
-Can now use .exe, .lnk. 
-Refactored UI/UX
-Added logging to console
+Update #1:<br />
+Can now use .exe, .lnk. <br />
+Refactored UI/UX<br />
+Added logging to console<br />
 
 Used packages/libraries
 -tkinter
