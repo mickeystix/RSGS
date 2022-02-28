@@ -1,5 +1,5 @@
 # RSGS
-Random Steam Game Selector - Choose a random game (.url, .lnk, .exe) from a folder, then run it if you'd like.<br />
+Random Set Game Selector - Choose a random game (.url, .lnk, .exe) from a folder, then run it if you'd like.<br />
 <br />
 I sometimes cannot decide what game I actually want to play. This helps me make that decision.<br />
 
