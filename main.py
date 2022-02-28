@@ -82,7 +82,7 @@ def openDirMgr():
     btnSaveDir.grid(row=3, column=1)
     lblNotice = Label(dc, text="Directory can have .exe, .url, or .lnk files", fg="grey")
     lblNotice.grid(row=4, column=1)
-    lblNotice2 = Label(dc, text="Double \ is not required, simply copy and paste the path", fg="grey")
+    lblNotice2 = Label(dc, text="For best results, simply copy and paste the path", fg="grey")
     lblNotice2.grid(row=5, column=1)
 
 # GUI Items
