@@ -3,7 +3,6 @@ import os
 import random
 from tkinter import filedialog
 import webbrowser
-from xmlrpc.client import boolean
 
 root = Tk()
 root.title("")
