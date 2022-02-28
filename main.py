@@ -80,7 +80,7 @@ def runGame():
     exit()
 
 # Save new directory path
-def saveDir(newfolder, window):
+def saveDir(newfolder):
     global games_folder 
     if os.path.exists(newfolder):
         games_folder = newfolder
@@ -90,9 +90,9 @@ def saveDir(newfolder, window):
         lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
 
 # File Dialog prompt for directory selection
-def findDir(window):
+def findDir():
     newfolder = filedialog.askdirectory()
-    saveDir(newfolder, window)
+    saveDir(newfolder)
     lblGameChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
 
 # Spawn new window for directory changing
@@ -107,9 +107,9 @@ def openDirMgr():
     eDirectory.grid(row=1, column=0, columnspan = 8, padx=10)
     eDirectory.delete(1, END)
     eDirectory.insert(0, str(games_folder))
-    btnSelectDir = Button(openDirMgr.window, text="Select", command=lambda:findDir(openDirMgr.window))
+    btnSelectDir = Button(openDirMgr.window, text="Select", command=findDir)
     btnSelectDir.grid(row=2, column=0)
-    btnSaveDir = Button(openDirMgr.window, text="Save", command=lambda:saveDir(eDirectory.get(), openDirMgr.window))
+    btnSaveDir = Button(openDirMgr.window, text="Save", command=lambda:saveDir(eDirectory.get()))
     btnSaveDir.grid(row=2, column=7)
     lblNotice = Label(openDirMgr.window, text="Directory can have .exe, .url, or .lnk files", fg="grey")
     lblNotice.grid(row=2, column=3)

@@ -30,4 +30,6 @@ Used packages/libraries:<br />
 -os<br />
 -webbrowser<br />
 -random<br />
+<br />
 <img width="614" alt="update1" src="https://user-images.githubusercontent.com/30908995/155934049-1ae5a2e1-1887-4944-bc3a-e41080dda228.png">
+<br />
