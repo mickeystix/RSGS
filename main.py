@@ -13,87 +13,87 @@ if os.path.exists("./favicon-32x32.png"):
     root.iconphoto(False, icon) 
 
 # You could change this to create a default folder
-games_folder = (r"")
+chosen_folder = (r"")
 
 # Print to console count (ln 50)
 def logCount():
-    getGameCount(1)
+    getFileCount(1)
     
 # Print to console selection (ln 66)
 def logSelection():
-    print("Selected Game: " + chooseGame.strSelectedGame)
+    print("Selected File: " + chooseFile.strSelectedFile)
 
-# Get the list of games from a folder
-def getGameList(games_folder):
-    getGameList.gameList = [f for f in os.listdir(games_folder) if f.endswith(('.url', '.lnk', '.exe'))]
-    if not getGameList.gameList:
-        print("Failed to find any games in directory")
+# Get the list of files from a folder
+def getFileList(chosen_folder):
+    getFileList.fileList = [f for f in os.listdir(chosen_folder) if f.endswith(('.url', '.lnk', '.exe'))]
+    if not getFileList.fileList:
+        print("Failed to find any valid files in directory")
     else:
         #logCount()
-        getGameCount(0)
-        return getGameList.gameList 
+        getFileCount(0)
+        return getFileList.fileList 
         
-# Choose a random game from list of games
-def getRandomGame(totalgames, games):
-    choice = random.randint(0,totalgames-1)
-    return games[choice]
+# Choose a random file from list of file
+def getRandomFile(totalFiles, files):
+    choice = random.randint(0,totalFiles-1)
+    return files[choice]
 
-# Get total number of games in dir, if mode == 1 print to console
-def getGameCount(mode):
+# Get total number of files in dir, if mode == 1 print to console
+def getFileCount(mode):
     if mode == 0:
         i = 0
-        while i < (len(getGameList.gameList)):
+        while i < (len(getFileList.fileList)):
             i += 1
-        getGameCount.totalGames = i
+        getFileCount.totalFiles = i
     elif mode == 1:
-        print("\n==========GAMELIST==========")
+        print("\n==========fileList==========")
         i = 0
-        while i < (len(getGameList.gameList)):
-            game = str(getGameList.gameList[i])
-            print(game[:len(game)-4])
+        while i < (len(getFileList.fileList)):
+            file = str(getFileList.fileList[i])
+            print(file[:len(file)-4])
             i += 1
-        print("==========GAMELIST==========")
-        getGameCount.totalGames = i
-        print("Total Games Found: " + str(getGameCount.totalGames))
+        print("==========fileList==========")
+        getFileCount.totalFiles = i
+        print("Total Files Found: " + str(getFileCount.totalFiles))
 
 # Main function that runs all the stuff
-def chooseGame():
-    if games_folder != "":
-        games = getGameList(games_folder)
-        if games:
-            chooseGame.selectedGame = getRandomGame(getGameCount.totalGames, games)
-            chooseGame.strSelectedGame = (chooseGame.selectedGame[:len(chooseGame.selectedGame)-4])
+def chooseFile():
+    if chosen_folder != "":
+        files = getFileList(chosen_folder)
+        if files:
+            chooseFile.selectedFile = getRandomFile(getFileCount.totalFiles, files)
+            chooseFile.strSelectedFile = (chooseFile.selectedFile[:len(chooseFile.selectedFile)-4])
             #logSelection()
             updateChoiceLabel()
         else:
-            lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
+            lblFileChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
     
-# Show the user the chosen game    
+# Show the user the chosen file    
 def updateChoiceLabel():
-    lblGameChosen.config(text=chooseGame.strSelectedGame, bg="black", fg="white")
-    btnRunGame.config(text="Play", bg="green", fg="white")
+    lblFileChosen.config(text=chooseFile.strSelectedFile, bg="black", fg="white")
+    btnRunFile.config(text="Play", bg="green", fg="white")
     
-# Run the chosen game    
-def runGame():
-    if games_folder != "" and chooseGame.selectedGame:
-        webbrowser.open(games_folder + r"\\" + chooseGame.selectedGame)
+# Run the chosen file    
+def runFile():
+    if chosen_folder != "" and chooseFile.selectedFile:
+        webbrowser.open(chosen_folder + r"\\" + chooseFile.selectedFile)
     exit()
 
 # Save new directory path
 def saveDir(newfolder):
-    global games_folder 
+    global chosen_folder 
     if os.path.exists(newfolder):
-        games_folder = newfolder
-        lblGameChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
+        chosen_folder = newfolder
+        lblFileChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
         openDirMgr.window.destroy()
     else:
-        lblGameChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
+        lblFileChosen.config(text="There was an issue! Please check the directory in Settings.", fg="red")
 
 # File Dialog prompt for directory selection
 def findDir():
     newfolder = filedialog.askdirectory()
     saveDir(newfolder)
-    lblGameChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
+    lblFileChosen.config(text="Directory Set! Click Choose.", bg="black", fg="white")
 
 # Spawn new window for directory changing
 def openDirMgr():
@@ -106,7 +106,7 @@ def openDirMgr():
     eDirectory = Entry(openDirMgr.window, width=62)
     eDirectory.grid(row=1, column=0, columnspan = 8, padx=10)
     eDirectory.delete(1, END)
-    eDirectory.insert(0, str(games_folder))
+    eDirectory.insert(0, str(chosen_folder))
     btnSelectDir = Button(openDirMgr.window, text="Select", command=findDir)
     btnSelectDir.grid(row=2, column=0)
     btnSaveDir = Button(openDirMgr.window, text="Save", command=lambda:saveDir(eDirectory.get()))
@@ -115,12 +115,12 @@ def openDirMgr():
     lblNotice.grid(row=2, column=3)
 
 # GUI Items
-lblGameChosen = Label(root, text="Click Change Directory Button to set, then Click Choose.", width= 50)
-lblGameChosen.grid(row=0, column=0, columnspan=12)
-btnChooseGame = Button(root, text="Choose", command=chooseGame)
-btnChooseGame.grid(row=1, column=3)
-btnRunGame = Button(root, text="Play", command=runGame)
-btnRunGame.grid(row=1, column=5)
+lblFileChosen = Label(root, text="Click Change Directory Button to set, then Click Choose.", width= 50)
+lblFileChosen.grid(row=0, column=0, columnspan=12)
+btnchooseFile = Button(root, text="Choose", command=chooseFile)
+btnchooseFile.grid(row=1, column=3)
+btnRunFile = Button(root, text="Start", command=runFile)
+btnRunFile.grid(row=1, column=5)
 btnChangeDir = Button(root, text="Change Directory", command=openDirMgr)
 btnChangeDir.grid(row=1, column=7)
 
